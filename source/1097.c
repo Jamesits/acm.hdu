@@ -37,7 +37,7 @@ int main()
 	unsigned int a, b;
 	while(scanf("%u %u", &a, &b) != EOF)
 		{
-			a -= a / 10 * 10;	// 取个位数
+			a %= 10;				// 取个位数
 			if (0 == a && 0 == b)	// 0 ^ 0 无定义
 				return 1;
 			else if (0 == b)		// n ^ 0 当 n != 0 时为 1
