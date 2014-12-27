@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned int *key;      // 存储 hash 后的数值
+unsigned int *key;      // 存储 hash 结果
 unsigned int *value;    // 存储每一个 hash 值出现的次数
 unsigned int size;      // 当前 hash table 大小
 unsigned int count;     // 实际字段数
@@ -18,33 +18,33 @@ unsigned int count;     // 实际字段数
  */
 unsigned int crc32(unsigned char *message)
 {
-    int i, j;
+    int i = 0;
     unsigned int byte, crc, mask;
 
-    i = 0;
     crc = 0xFFFFFFFF;
     while ( message[i] != 0 )
     {
         byte = message[i];
         crc = crc ^ byte;
-        for ( j = 7; j >= 0; j-- )
+        int j = 7;
+        for ( ; j >= 0; j-- )
         {
             mask = -(crc & 1);
             crc = (crc >> 1) ^ (0xEDB88320 & mask);
         }
-        i = i + 1;
+        i++;
     }
 
     return ~crc;
 }
 
 /*
- *  数组初始化
+ *  hash table 初始化
  */
-void init_ptrs()
+void init_hash_table()
 {
-    if ( key != NULL ) free(key);
-    if ( value != NULL ) free(value);
+    free(key);
+    free(value);
     key = NULL;
     value = NULL;
     size = 0;
@@ -57,7 +57,7 @@ void init_ptrs()
 void add_item(const unsigned int number)
 {
     unsigned int i;
-
+    // 在 hash table 中搜索是否存在
     for ( i = 0; i < count; i++ )
     {
         if ( key[i] == number )
@@ -67,6 +67,7 @@ void add_item(const unsigned int number)
             return;
         }
     }
+    // 不存在时
     if ( count == size )
     {
         size += size_delta;
@@ -94,15 +95,16 @@ void print_all()
 int main(void)
 {
     unsigned int num;
-    unsigned char a[31], *start;
 
     while ( scanf("%u", &num) != EOF )
     {
         // 初始化
-        init_ptrs();
-        // 输入，忽略删去前导 0
+        init_hash_table();
+        // 输入，忽略前导 0。如果输入全为 '0' 的话这里会变成空字符串，CRC32 结果为 0，
+        // 不影响程序逻辑。
         while ( num-- > 0 )
         {
+            unsigned char a[31], *start;
             scanf("%30s", a);
             for ( start = a; *start == '0'; start++ );
             add_item( crc32( start ) );
