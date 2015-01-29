@@ -2,6 +2,7 @@
  * 直接在某位同学的坑爹程序上面改的，所以变量名有点奇怪
  */
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 
