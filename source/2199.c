@@ -33,7 +33,7 @@ Written by James Swineson. 2015-05-06
 #define false 0
 
 /* #include <math.h> */
-#define fabs(X) ((X)>0 ? (X) : -(X))
+#define fabs(X) ((X)>0 ? (X) : (-(X))
 
 /* 问题的参数：解范围和允许的误差 */
 #define RANGE_MIN 0
