@@ -45,14 +45,14 @@ double f(double x, double y) {
 	return (8*x*x*x*x + 7*x*x*x + 2*x*x + 3*x + 6 - y);
 }
 
-double df(double x) {
+double df(double x, double y) {
 	/* 原函数的导数 */
 	return (32*x*x*x + 21*x*x + 4*x + 3);
 }
 
 double iterate_next_x(double last_x, double y) {
 	/* 牛顿法迭代：x(n+1) = x(n) - f(x(n))/f'(x(n)) */
-	return (last_x - f(last_x, y)/df(last_x));
+	return (last_x - f(last_x, y)/df(last_x, y));
 }
 
 bool has_solution_in_range(double lower_limit, double upper_limit, double y) {
