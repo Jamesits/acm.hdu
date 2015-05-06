@@ -79,8 +79,8 @@ bool solve(double y, double *solution) {
 	
 	/* 检查输入值和边界条件 */
 	if ( !has_solution_in_range(RANGE_MIN, RANGE_MAX, y) ) return (false);
-	if ( is_acceptable_solution((RANGE_MIN), y) == true ) { *solution = (RANGE_MIN); return (true); }
-	if ( is_acceptable_solution((RANGE_MAX), y) == true ) { *solution = (RANGE_MAX); return (true); }
+	if ( is_acceptable_solution((RANGE_MIN), y) == (true) ) { *solution = (RANGE_MIN); return (true); }
+	if ( is_acceptable_solution((RANGE_MAX), y) == (true) ) { *solution = (RANGE_MAX); return (true); }
 	
 	/* 迭代 */
 	/* 注意迭代时中间值可能超出给定范围，暂时不做判断等迭代结束 */
